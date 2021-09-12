@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        .error {}
+    </style>
+</head>
+<body>
+    <div id="app">
+
+    <form ref="form">
+        <div class="container">
+            <div class="row">
+                <div class="col-11">
+                    <input v-model="query" class="form-control form-control-lg" type="text" placeholder="Christchurch">
+                </div>
+                <div class="col-1">
+                    <a href="#" v-on:click="getdetails">SUBMIT</a>
+                </div>
+            </div>
+            
+        </div>
+    </form>
+    <h3 v-if="error"><span class="badge badge-danger"> {{ error }}</span></h3>
+
+        <!-- <input v-model="location" class="form-control form-control-lg" type="text" placeholder="Christchurch">
+        <a href="#" v-on:click="getdetails">SUBMIT</a> -->
+    
+    
+    <div v-if="location" class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <h1> {{location}} </h1>
+                </div>
+                <div class="row">
+                    <h3> {{description}} </h3>
+                </div>
+                <div class="row">
+                    <h3> {{temp}} </h3>
+                </div>
+                <div class="row">
+                    <h3> {{temp_min}} | {{temp_max}} </h3>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <img v-bind:src='descriptionImg'/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <img v-bind:src='locationImg'/>
+                </div>
+            </div>
+        
+        
+        </div>
+        </div>
+    </div>
+    
+</body>
+<script src="index.js"></script>
+</html>
