@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <style>
         .error {}
@@ -18,10 +19,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-11">
-                    <input v-model="query" class="form-control form-control-lg" type="text" placeholder="Christchurch">
+                    <input v-model="query" class="form-control form-control-lg" type="text" placeholder="Christchurch" v-on:keyup.enter="getdetails">
                 </div>
                 <div class="col-1">
-                    <a href="#" v-on:click="getdetails">SUBMIT</a>
+                    <a href="#" v-on:click="getdetails"><button type="button" class="btn btn-primary btn-lg">Submit</button></a>
                 </div>
             </div>
             
@@ -35,34 +36,41 @@
     
     <div v-if="location" class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-6 center">
                 <div class="row">
                     <h1> {{location}} </h1>
                 </div>
                 <div class="row">
-                    <h3> {{description}} </h3>
+                    <h2> {{description}} </h2>
                 </div>
                 <div class="row">
-                    <h3> {{temp}} </h3>
+                    <h3> {{temp}}°C </h3>
                 </div>
                 <div class="row">
-                    <h3> {{temp_min}} | {{temp_max}} </h3>
+                    <h3> {{temp_min}}°C | {{temp_max}}°C </h3>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <div class="row">
-                    <img v-bind:src='descriptionImg'/>
+                    <img v-bind:src='descriptionImg' class="img-fluid"/>
                 </div>
             </div>
-            <div class="col">
+            <!-- <div class="col-3">
                 <div class="row">
-                    <img v-bind:src='locationImg'/>
+                    <img v-bind:src='locationImg' class="img-fluid"/>
                 </div>
-            </div>
+            </div> -->
         
         
         </div>
+        <div class="row">
+            <div v-for="locationImg in locationImgs" class="col-3">
+                <img v-bind:src='locationImg' class="img-fluid"/>
+            </div>
+
         </div>
+        </div>
+        
     </div>
     
 </body>

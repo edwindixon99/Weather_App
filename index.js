@@ -38,7 +38,7 @@ var app = new Vue({
     data: {
         query: 'Christchurch',
         location: '',
-        locationImg: '',
+        locationImgs: [],
         description: '',
         descriptionImg: '',
         temp: '',
@@ -75,23 +75,35 @@ var app = new Vue({
             this.query = ''
             this.error = ''
         },
-        async setImages() {
-            try {
-                const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=541OEcCxCuoK1F80mZD59fBgHN8ppeZn&s=${this.location}`, {mode: 'cors'})
-                const imgJson = await response.json();
-                this.locationImg = await imgJson.data.images.original.url;
-            } catch (error) {
-                this.locationImg = 'https://cdn.mos.cms.futurecdn.net/yCPyoZDQBBcXikqxkeW2jJ-1200-80.jpg'
+        async getlocationImages() {
+            this.locationImgs = [];
+            for (let i=0; i<12; i++) {
+                try {
+                    const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=541OEcCxCuoK1F80mZD59fBgHN8ppeZn&s=${this.location}`, {mode: 'cors'})
+                    const imgJson = await response.json();
+                    console.log(await imgJson.data.images.original.url)
+                    this.locationImgs.push(await imgJson.data.images.original.url);
+                } catch (error) {
+                    this.locationImgs.push('https://cdn.mos.cms.futurecdn.net/yCPyoZDQBBcXikqxkeW2jJ-1200-80.jpg')
+                }
+                console.log(this.locationImgs)
             }
+            
+        },
+        async setImages() {
+
+            this.getlocationImages();
+
 
             try {
-                const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=541OEcCxCuoK1F80mZD59fBgHN8ppeZn&s=${this.description}`, {mode: 'cors'})
+                console.log(`https://api.giphy.com/v1/gifs/translate?api_key=541OEcCxCuoK1F80mZD59fBgHN8ppeZn&s=${this.description.replace(/\s/g, '+')}`)
+                const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=541OEcCxCuoK1F80mZD59fBgHN8ppeZn&s=${this.description.replace(/\s/g, '_')}`, {mode: 'cors'})
                 const imgJson = await response.json();
                 this.descriptionImg = await imgJson.data.images.original.url;
             } catch (error) {
-                this.locationImg = 'https://cdn.mos.cms.futurecdn.net/yCPyoZDQBBcXikqxkeW2jJ-1200-80.jpg'
+                this.descriptionImg = 'https://cdn.mos.cms.futurecdn.net/yCPyoZDQBBcXikqxkeW2jJ-1200-80.jpg'
             }
-            console.log(this.locationImg)
+            console.log(this.descriptionImg)
             
             
         }
